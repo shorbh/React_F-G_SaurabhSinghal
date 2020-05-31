@@ -1,10 +1,10 @@
-import React,{Component} from 'react';
+import React from 'react';
 import './common.css';
 import './FormDetails.css';
 import serializeForm from 'form-serialize';
 
-class FormDetails extends Component{
-  validationHandler = formFieldsValues =>{
+const FormDetails = (props)=>{
+  const validationHandler = formFieldsValues =>{
     let errorObject ={};
     const style = {borderColor: '#d63447'};
     const error = 'Error: This is Mandatory field';
@@ -18,26 +18,25 @@ class FormDetails extends Component{
     else if(formFieldsValues.phone.length !== 10) errorObject.phone = {error:'Error: Please fill a ten digit number',style};
     if(formFieldsValues.radio === undefined) errorObject.radio = {error,style};
     if(formFieldsValues.name === undefined || formFieldsValues.name.trim() === '') errorObject.name = {error,style};
-    return Object.keys(errorObject).length?  this.props.handlevalidation(errorObject) : true
+    return Object.keys(errorObject).length?  props.handlevalidation(errorObject) : true
   }
-  submitHandler = (event)=>{
+  const submitHandler = (event)=>{
     event.preventDefault();
     const formFieldsValues = serializeForm(event.target,{hash:true});
-    if(this.validationHandler(formFieldsValues) === true)
+    if(validationHandler(formFieldsValues) === true)
     {
-      const feedbackData = [...this.props.feedbackdata, formFieldsValues];
+      const feedbackData = [...props.feedbackdata, formFieldsValues];
       localStorage.setItem('feedback',JSON.stringify(feedbackData));
-      this.props.submithandler(true);
+      props.submithandler(true);
     }
   }
-  render(){
-    const {text,email,phone,radio,name} = this.props.validationmessage;
+    const {text,email,phone,radio,name} = props.validationmessage;
     return(
       <div className="form-body">
-        <p>Aromatic Bar</p>
+        <p style={{ color: '#1b6ca8'}}>Aromatic Bar</p>
         <p>We are committed to providing you with the best dining experience possible, so we welcome your comments. Please fill out this questionnaire. Thank you.</p>
         <div className='form-card'>
-          <form id='form' onSubmit={this.submitHandler}>
+          <form id='form' onSubmit={submitHandler}>
             <label className="label-input">
               <p>Text field<span>*</span></p>
               <input type = 'text' name='text' style={text === undefined? {}: text.style} className='form-input' placeholder='please give the feedback' />
@@ -81,7 +80,6 @@ class FormDetails extends Component{
         <button form='form' type='submit' >Submit</button>
       </div>
     )
-  }
 }
 
 export default FormDetails;
