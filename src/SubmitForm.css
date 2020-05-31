@@ -1,0 +1,13 @@
+.submit{
+  margin: 20px;
+  text-align: center;
+  background-color: #dbc6eb;
+  height: 580px;
+}
+.approve{
+  font-size: 100px;
+}
+h2{
+  font-weight: bold;
+  font-variant: small-caps;
+}

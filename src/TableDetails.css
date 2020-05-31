@@ -1,0 +1,8 @@
+.form-table{
+  height: auto;
+}
+.form-table thead{
+  background-color: #EFE9FA;
+  color: #be9fe1;
+  flex: 0 0 auto;
+}
